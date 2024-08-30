@@ -1,0 +1,119 @@
+// Nodes and groups
+UserInput [shape: oval, icon: message-square, label: "User enters a query"]
+
+Frontend [color: blue] {
+  Capture user input [shape: oval, icon: message-square, label: "Capture user input from chat area"]
+  Sanitize input [shape: oval, icon: shield, label: "Sanitize user input"]
+  Store input temporarily [shape: oval, icon: save, label: "Store input in temporary memory"]
+  Send query [shape: oval, icon: send, label: "Send query to backend"]
+  Regenerate response [shape: oval, icon: refresh-cw, label: "Regenerate previous response"]
+  Display loading state [shape: diamond, icon: loader, label: "Show loading indicator"]
+  Display response [shape: oval, icon: eye, label: "Display response from backend"]
+  Display feedback options [shape: diamond, icon: thumbs-up, label: "Provide feedback options"]
+  Display chat history [shape: oval, icon: book-open, label: "Display chat history in UI"]
+}
+
+Backend [color: orange] {
+  Server receives query [shape: oval, icon: inbox, label: "Server receives query"]
+  Log query [shape: oval, icon: log-in, label: "Log the received query"]
+  Route to memory manager [shape: oval, icon: shuffle, label: "Route query to memory manager"]
+  
+  MemoryManager [color: teal] {
+    Check if user session exists [shape: diamond, icon: user-check, label: "Check if session exists"]
+    Load session data [shape: oval, icon: upload, label: "Load session data from storage"]
+    Initialize new session [shape: oval, icon: user-plus, label: "Initialize a new session for user"]
+    Update session with new query [shape: oval, icon: save, label: "Store the new query in session memory"]
+    Check for user name [shape: diamond, icon: user, label: "Check if user name is provided"]
+    Assign anonymous ID [shape: oval, icon: key, label: "Assign anonymous ID if no name found"]
+    Monitor session timeout [shape: oval, icon: clock, label: "Monitor session for timeout"]
+    Save updated session [shape: oval, icon: save, label: "Save updated session back to storage"]
+    Forward query to intention detector [shape: arrow-right-circle, label: "Forward query for intention detection"]
+  }
+  
+  IntentionDetector [color: red] {
+    Analyze query for intent [shape: oval, icon: search, label: "Analyze user query to detect intent"]
+    Log detected intent [shape: oval, icon: log-in, label: "Log detected intent for debugging"]
+    Route to appropriate agent [shape: oval, icon: shuffle, label: "Route detected intent to appropriate agent"]
+  }
+
+  AgentManager [color: green] {
+    Call relevant agent [shape: oval, icon: user-check, label: "Call the agent responsible for detected intent"]
+    
+    Agents [color: lightgreen] {
+      Agent Price Check [shape: rectangle, icon: dollar-sign, label: "Handle price-related queries"]
+      Agent Product Info [shape: rectangle, icon: info, label: "Provide information on products/services"]
+      Agent Complaints [shape: rectangle, icon: alert-triangle, label: "Process complaints from users"]
+      Agent History Check [shape: rectangle, icon: book, label: "Maintain and track conversation history"]
+      Agent Feedback [shape: rectangle, icon: thumbs-up, label: "Process feedback provided by user"]
+      Agent Website Guide [shape: rectangle, icon: navigation, label: "Guide user through website navigation"]
+      Generate agent response [shape: rectangle, icon: message-square, label: "Generate a response based on agent logic"]
+      Send agent response to memory manager [shape: arrow-right-circle, label: "Send generated response back to memory manager"]
+    }
+  }
+
+  MemoryManager [color: teal] {
+    Update session with agent response [shape: oval, icon: save, label: "Update session memory with agent response"]
+    Determine if further action is needed [shape: diamond, icon: layers, label: "Check if further processing is required"]
+    Save final response [shape: oval, icon: save, label: "Save final response to session"]
+    Forward final response to response formatter [shape: arrow-right-circle, label: "Send response to formatter"]
+  }
+
+  ResponseFormatter [color: purple] {
+    Format response for Lina's style [shape: oval, icon: brush, label: "Apply Lina's style to the response"]
+    Return formatted response to server [shape: oval, icon: arrow-right-circle, label: "Return formatted response to server"]
+  }
+  
+  Return response to frontend [shape: oval, icon: send, label: "Send the final formatted response back to frontend"]
+  Log final response [shape: oval, icon: log-in, label: "Log the final response for tracking"]
+  
+  FeedbackHandler [color: yellow] {
+    Server receives feedback [shape: oval, icon: inbox, label: "Receive feedback from frontend"]
+    Log feedback [shape: oval, icon: log-in, label: "Log feedback details for analysis"]
+    Store feedback in history [shape: oval, icon: save, label: "Store feedback in feedback_log.json"]
+    Query last interaction [shape: oval, icon: search, label: "Query the last user interaction and response"]
+    Apply feedback to learning model [shape: oval, icon: layers, label: "Use feedback for model improvements"]
+  }
+}
+
+// Relationships
+UserInput > Capture user input
+Capture user input > Sanitize input
+Sanitize input > Store input temporarily
+Store input temporarily > Send query
+Send query > Server receives query
+Server receives query > Log query
+Log query > Route to memory manager
+Route to memory manager > Check if user session exists
+Check if user session exists > Load session data: Yes
+Check if user session exists > Initialize new session: No
+Initialize new session > Update session with new query
+Load session data > Update session with new query
+Update session with new query > Check for user name
+Check for user name > Assign anonymous ID: No
+Check for user name > Monitor session timeout: Yes
+Assign anonymous ID > Monitor session timeout
+Monitor session timeout > Save updated session
+Save updated session > Forward query to intention detector
+Forward query to intention detector > Analyze query for intent
+Analyze query for intent > Log detected intent
+Log detected intent > Route to appropriate agent
+Route to appropriate agent > Call relevant agent
+Call relevant agent > Generate agent response
+Generate agent response > Send agent response to memory manager
+Send agent response to memory manager > Update session with agent response
+Update session with agent response > Determine if further action is needed
+Determine if further action is needed > Save final response: No
+Determine if further action is needed > Forward final response to response formatter: Yes
+Forward final response to response formatter > Format response for Lina's style
+Format response for Lina's style > Return formatted response to server
+Return formatted response to server > Return response to frontend
+Return response to frontend > Display response
+Display response > Display feedback options
+Display response > Display chat history
+
+Display feedback options > User provides feedback: Yes
+User provides feedback > Server receives feedback
+Server receives feedback > Log feedback
+Log feedback > Store feedback in history
+Store feedback in history > Query last interaction
+Query last interaction > Apply feedback to learning model

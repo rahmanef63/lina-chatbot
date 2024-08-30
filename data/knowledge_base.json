@@ -1,0 +1,14 @@
+{
+  "layanan": {
+    "ekspres": {
+      "deskripsi": "Layanan laundry ekspres dengan waktu pengerjaan yang lebih cepat.",
+      "durasi": "2-4 jam",
+      "biaya": "Rp45,000"
+    },
+    "standar": {
+      "deskripsi": "Layanan laundry standar dengan durasi pengerjaan reguler.",
+      "durasi": "1-3 hari",
+      "biaya": "Rp25,000"
+    }
+  }
+}

@@ -1,15 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { processChatbotQuery } from '../../../backend/controllers/chatbotController';
 
 export async function POST(request: NextRequest) {
-    const { query } = await request.json();
+    try {
+        const { query } = await request.json();
+        const sessionId = request.headers.get('session-id') || 'default-session-id'; // Gunakan sessionId dari header atau default
 
-    // Logika untuk memproses query dari pengguna
-    const response = await processQuery(query);
+        // Proses query dengan Groq LLM
+        const response = await processChatbotQuery(sessionId, query);
 
-    return NextResponse.json({ response });
-}
-
-async function processQuery(query: string): Promise<string> {
-    // Placeholder untuk memproses query dan mengembalikan respons
-    return `Lina received your query: "${query}"`;
+        return NextResponse.json({ response });
+    } catch (error) {
+        console.error('Error in chatbot API route:', error);
+        return NextResponse.json({ response: 'Sorry, something went wrong on the server.' });
+    }
 }
