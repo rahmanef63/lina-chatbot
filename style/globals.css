@@ -1,33 +1,54 @@
+/* globals.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+/* Chatbot Styles */
+.lina-chat {
+  @apply flex flex-col max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.chat-history {
+  @apply flex-grow p-4 h-64 overflow-y-auto border-b border-gray-300;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.chat-history::-webkit-scrollbar {
+  @apply w-2;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.chat-history::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded;
+}
+
+.chat-message {
+  @apply mb-3;
+}
+
+.chat-message.user {
+  @apply text-right;
+}
+
+.chat-message.lina {
+  @apply text-left;
+}
+
+.input-container {
+  @apply flex p-4;
+}
+
+.text-input {
+  @apply flex-grow p-2 border border-gray-300 rounded-lg mr-2;
+}
+
+.send-button {
+  @apply p-2 bg-blue-500 text-white rounded-lg;
+}
+
+.send-button:hover {
+  @apply bg-blue-600;
+}
+
+.loading-indicator {
+  @apply text-center text-gray-500;
 }

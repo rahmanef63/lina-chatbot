@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-const LoadingIndicator = () => {
-  return (
-    <div>LoadingIndicator</div>
-  )
-}
+const LoadingIndicator: React.FC = () => {
+    return (
+        <div className="loading-indicator">
+            <span>Loading...</span>
+        </div>
+    );
+};
 
-export default LoadingIndicator
+export default LoadingIndicator;
